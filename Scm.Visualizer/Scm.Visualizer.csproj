@@ -82,6 +82,10 @@
       <Project>{35b4189b-6193-4f07-90b9-5e1df098c307}</Project>
       <Name>Scm.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="Scm.Ga\Scm.Ga.csproj">
+      <Project>{1c5e8445-e9a0-406c-8ae8-3de136129f7d}</Project>
+      <Name>Scm.Ga</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scm.Visualizer", "Scm.Visua
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scm.Common", "..\Scm.Common\Scm.Common.csproj", "{35B4189B-6193-4F07-90B9-5E1DF098C307}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scm.Ga", "Scm.Ga\Scm.Ga.csproj", "{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{35B4189B-6193-4F07-90B9-5E1DF098C307}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35B4189B-6193-4F07-90B9-5E1DF098C307}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35B4189B-6193-4F07-90B9-5E1DF098C307}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

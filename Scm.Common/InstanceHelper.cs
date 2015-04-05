@@ -80,7 +80,7 @@ namespace Scm.Common
 
             for (var i = 0; i < content.Length; i++)
             {
-                var trail = new Trail();
+                var tour = new Tour();
                 var splittedLine = content[i].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (i == 0)
@@ -89,10 +89,10 @@ namespace Scm.Common
                     continue;
                 }
 
-                trail.DepotName = splittedLine[0];
-                trail.VehicleNumber = splittedLine[1];
-                trail.Costs = double.Parse(splittedLine[2]);
-                trail.VehicleLoad = int.Parse(splittedLine[3]);
+                tour.DepotName = splittedLine[0];
+                tour.VehicleNumber = splittedLine[1];
+                tour.Costs = double.Parse(splittedLine[2]);
+                tour.VehicleLoad = int.Parse(splittedLine[3]);
 
                 var route = new List<string>();
                 for (var j=4; j<splittedLine.Length; j++)
@@ -100,74 +100,11 @@ namespace Scm.Common
                     route.Add(splittedLine[j]);
                 }
 
-                //for (var j = route.IndexOf("0"); j != -1; j = route.IndexOf("0"))
-                //{
-                //    route[j] = trail.DepotName;
-                //}
-                trail.Route = route;
-                instance.Trails.Add(trail);
+                tour.Route = route;
+                instance.Tour.Add(tour);
             }
 
             return instance;
         }
-    }
-
-    public class Instance
-    {
-        public int Vehicles { get; set; }
-        public int Customers { get; set; }
-        public int Depots { get; set; }
-
-        public int MaxVehicleLoad { get; set; }
-
-        public List<Vehicle> VehicleList { get; set; }
-        public List<Customer> CustomerList { get; set; }
-        public List<Depot> DepotList { get; set; }
-
-        public Instance()
-        {
-            VehicleList = new List<Vehicle>();
-            CustomerList = new List<Customer>();
-            DepotList = new List<Depot>();
-        }
-    }
-
-    public class Customer
-    {
-        public string Name { get; set; }
-        public Point Point { get; set; }
-        public int Demand { get; set; }
-    }
-
-    public class Vehicle
-    {
-        public string Name { get; set; }
-        public int LoadCapacity { get; set; }
-    }
-
-    public class Depot
-    {
-        public string Name { get; set; }
-        public Point Point {get;set;}
-    }
-
-    public class InstanceSolution
-    {
-        public List<Trail> Trails { get; set; }
-        public double TotalCosts { get; set; }
-
-        public InstanceSolution()
-        {
-            Trails = new List<Trail>();
-        }
-    }
-
-    public class Trail
-    {
-        public string DepotName { get; set; }
-        public string VehicleNumber { get; set; }
-        public double Costs { get; set; }
-        public int VehicleLoad { get; set; }
-        public List<string> Route { get; set; }
     }
 }

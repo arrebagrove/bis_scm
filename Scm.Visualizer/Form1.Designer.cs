@@ -32,6 +32,7 @@
             this.buttonLoadInstance = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.buttonLoadSolution = new System.Windows.Forms.Button();
+            this.buttonSolveTsp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel
@@ -62,7 +63,7 @@
             // 
             // buttonLoadSolution
             // 
-            this.buttonLoadSolution.Location = new System.Drawing.Point(127, 12);
+            this.buttonLoadSolution.Location = new System.Drawing.Point(514, 12);
             this.buttonLoadSolution.Name = "buttonLoadSolution";
             this.buttonLoadSolution.Size = new System.Drawing.Size(107, 23);
             this.buttonLoadSolution.TabIndex = 2;
@@ -70,11 +71,22 @@
             this.buttonLoadSolution.UseVisualStyleBackColor = true;
             this.buttonLoadSolution.Click += new System.EventHandler(this.ButtonLoadSolutionClick);
             // 
+            // buttonSolveTsp
+            // 
+            this.buttonSolveTsp.Location = new System.Drawing.Point(127, 12);
+            this.buttonSolveTsp.Name = "buttonSolveTsp";
+            this.buttonSolveTsp.Size = new System.Drawing.Size(97, 23);
+            this.buttonSolveTsp.TabIndex = 3;
+            this.buttonSolveTsp.Text = "TSP";
+            this.buttonSolveTsp.UseVisualStyleBackColor = true;
+            this.buttonSolveTsp.Click += new System.EventHandler(this.ButtonSolveTspClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 627);
+            this.Controls.Add(this.buttonSolveTsp);
             this.Controls.Add(this.buttonLoadSolution);
             this.Controls.Add(this.buttonLoadInstance);
             this.Controls.Add(this.panel);
@@ -91,6 +103,7 @@
         private System.Windows.Forms.Button buttonLoadInstance;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button buttonLoadSolution;
+        private System.Windows.Forms.Button buttonSolveTsp;
 
     }
 }
