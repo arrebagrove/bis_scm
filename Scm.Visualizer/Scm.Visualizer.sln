@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scm.Common", "..\Scm.Common
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scm.Ga", "Scm.Ga\Scm.Ga.csproj", "{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scm.Acs", "..\Scm.Acs\Scm.Acs.csproj", "{0E4D58BD-177D-45E5-A1A4-209DD5137D55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C5E8445-E9A0-406C-8AE8-3DE136129F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E4D58BD-177D-45E5-A1A4-209DD5137D55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4D58BD-177D-45E5-A1A4-209DD5137D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4D58BD-177D-45E5-A1A4-209DD5137D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4D58BD-177D-45E5-A1A4-209DD5137D55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

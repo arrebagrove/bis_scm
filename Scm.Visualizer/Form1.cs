@@ -1,14 +1,10 @@
-﻿using Scm.Common;
-using Scm.Ga;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
+using Scm.Common;
+using Scm.Ga;
 
 namespace Scm.Visualizer
 {
@@ -17,8 +13,8 @@ namespace Scm.Visualizer
         private Instance _instance;
         private InstanceSolution _instanceSolution;
         private Trail[] _trails;
-        private int _colorIndex = 0;
-        private Color[] _colors = new[] { Color.Green, Color.Blue, Color.Orange, Color.Brown, Color.Violet, Color.Yellow, Color.Lime, Color.Magenta, Color.Indigo };
+        private int _colorIndex;
+        private Color[] _colors = { Color.Green, Color.Blue, Color.Orange, Color.Brown, Color.Violet, Color.Yellow, Color.Lime, Color.Magenta, Color.Indigo };
 
         public Form1()
         {
@@ -75,7 +71,7 @@ namespace Scm.Visualizer
                         if (to == default(Point))
                             to = _instance.DepotList[int.Parse(tour.DepotName) - 1].Point;
 
-                        if (from == null || to == null)
+                        if (from == default(Point) || to == default(Point))
                             continue;
 
                         var fromPoint = GetScaledPoint(new Point(maxX, maxY), from);
@@ -93,9 +89,9 @@ namespace Scm.Visualizer
                 var maxX = Math.Max(_instance.DepotList.Max(i => i.Point.X), _instance.CustomerList.Max(i => i.Point.X)) + 5;
                 var maxY = Math.Max(_instance.DepotList.Max(i => i.Point.Y), _instance.CustomerList.Max(i => i.Point.Y)) + 5;
 
-                //foreach (var trail in _trails)
-                //{
-                var trail = _trails.OrderBy(t => t.Costs).First();
+                foreach (var trail in _trails)
+                {
+                    //var trail = _trails.OrderBy(t => t.Costs).First();
                     for (var i = 0; i < trail.Points.Length; i++)
                     {
                         if (i + 1 >= trail.Points.Length)
@@ -104,21 +100,31 @@ namespace Scm.Visualizer
                         var from = trail.Points[i];
                         var to = trail.Points[i + 1];
 
-                        if (from == null || to == null)
+                        if (from == default(Point) || to == default(Point))
                             continue;
 
                         var fromPoint = GetScaledPoint(new Point(maxX, maxY), from);
                         var toPoint = GetScaledPoint(new Point(maxX, maxY), to);
 
                         e.Graphics.DrawLine(new Pen(Brushes.Red, 1f), fromPoint.X + 5, fromPoint.Y + 5, toPoint.X + 5, toPoint.Y + 5);
+                         
+                        e.Graphics.DrawString((i + 1).ToString(), new Font(Font.FontFamily, 10), Brushes.Red, toPoint.X + 10, toPoint.Y - 10);
                     }
-                //}
+
+                    // Connect last with first
+                    //var lastPoint = trail.Points.Length - 1;
+                    //var fromLastPoint = GetScaledPoint(new Point(maxX, maxY), trail.Points[lastPoint]);
+                    //var toLastPoint = GetScaledPoint(new Point(maxX, maxY), trail.Points[0]);
+                    //e.Graphics.DrawLine(new Pen(Brushes.Red, 1f), fromLastPoint.X + 5, fromLastPoint.Y + 5, toLastPoint.X + 5, toLastPoint.Y + 5);
+
+                    e.Graphics.DrawString(trail.Costs.ToString("n2"), new Font(Font.FontFamily, 12), Brushes.Green, 10, 10);
+                }
             }
         }
 
         private void ButtonLoadInstanceClick(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             _instanceSolution = null;
@@ -128,7 +134,7 @@ namespace Scm.Visualizer
 
         private void ButtonLoadSolutionClick(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             _instanceSolution = InstanceHelper.LoadInstanceSolution(openFileDialog.FileName);
@@ -142,45 +148,30 @@ namespace Scm.Visualizer
 
         private void ButtonSolveTspClick(object sender, EventArgs e)
         {
-            var replaceFactor = 0.3;
-            var trailCount = 50;
-            var mutationCount = 100000;
+            buttonSolveTsp.Enabled = false;
 
-            var random = new Random();
-            _trails = new Trail[trailCount];
+            _trails = null;
 
-            // Build Trails
-            for (var t=0; t<trailCount; t++)
+            var acs = new Acs.Acs();
+            for (var i = 0; i < 50; i++)
             {
-                var trail = new Trail();
-                trail.Points = _instance.CustomerList.Select(i => i.Point).Take(10).ToArray();
+                var trails = acs.Run(_instance.CustomerList.Select(p => p.Point).ToArray(), DrawCallback);
 
-                // Shuffle trail
-                for (var p=0; p<trail.Points.Length; p++)
-                {
-                    var from = random.Next(trail.Points.Length);
-                    var to = random.Next(trail.Points.Length);
-                    var tmpTrail = trail.Points[from];
-                    trail.Points[from] = trail.Points[to];
-                    trail.Points[to] = tmpTrail;
-                }
-
-                _trails[t] = trail;
+                //labelCosts.Text = trails[0].Costs.ToString("n2");
+                //
             }
 
-            for (var m=0; m<mutationCount; m++)
+            buttonSolveTsp.Enabled = true;
+        }
+
+        private void DrawCallback(Trail[] trails)
+        {
+            if (_trails == null || trails[0].Costs < _trails[0].Costs)
             {
-                // Replace lower (more costly) trails
-                var orderedTrails = _trails.OrderBy(t => t.Costs).ToArray();
-
-                var lowerIndex = (int)(_trails.Length * replaceFactor);
-                for (var t=0; t<lowerIndex; t++)
-                {
-                    _trails[trailCount - 1 - t] = _trails[random.Next(trailCount - lowerIndex)].Mutation();
-                }
+                _trails = trails;
+                panel.Refresh();
+                Thread.Sleep(200);
             }
-
-            panel.Refresh();
         }
     }
 }

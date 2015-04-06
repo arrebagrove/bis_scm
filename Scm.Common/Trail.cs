@@ -17,16 +17,17 @@ namespace Scm.Common
         {
             get
             {
-                if (double.IsNaN(_costs))
-                {
+                //if (double.IsNaN(_costs))
+                //{
+                _costs = 0;
                     for (var p = 0; p < Points.Length - 1; p++)
                     {
                         var dX = Points[p].X - Points[p + 1].X;
                         var dY = Points[p].Y - Points[p + 1].Y;
 
-                        _costs = Math.Sqrt(Math.Pow(dX, 2) + Math.Pow(dY, 2));
+                        _costs += Math.Sqrt(Math.Pow(dX, 2) + Math.Pow(dY, 2));
                     }
-                }
+                //}
 
                 return _costs;
             }
